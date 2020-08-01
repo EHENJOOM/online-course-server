@@ -1,0 +1,40 @@
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: online-course-server
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  redis:
+    host: 101.200.49.246
+
+
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/course?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/Course?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: Course
+    password: 8JLypSkXfrhtj87e
