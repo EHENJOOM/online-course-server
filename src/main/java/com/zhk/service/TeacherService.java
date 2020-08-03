@@ -21,6 +21,14 @@ public interface TeacherService {
     TeacherPo getTeacherById(Integer id);
 
     /**
+     * 通过工号查询单条数据
+     *
+     * @param number 工号
+     * @return 实例对象
+     */
+    TeacherPo getTeacherByNumber(String number);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

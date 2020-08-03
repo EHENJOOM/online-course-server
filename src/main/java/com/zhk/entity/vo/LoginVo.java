@@ -11,6 +11,16 @@ public class LoginVo {
     private String number;
     private String password;
 
+    /**
+     * Web端鉴权，会话保持
+     */
+    private String token;
+
+    /**
+     * 账户类型
+     */
+    private Integer user;
+
     public String getNumber() {
         return number;
     }
@@ -27,11 +37,29 @@ public class LoginVo {
         this.password = password;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Integer getUser() {
+        return user;
+    }
+
+    public void setUser(Integer user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "LoginVo{" +
                 "number='" + number + '\'' +
                 ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 本项目的接口全部为Restful风格，
+ * GET方法为查询数据，POST为添加数据，PUT为修改数据，DELETE为删除数据
  * @author 赵洪苛
  * @date 2020/8/1 15:05
  * @description 学生信息相关操作控制层
@@ -26,33 +28,35 @@ public class StudentController {
 
     @GetMapping("/student")
     @PreventRepeatSubmit
-    public CommonResultVo<Map<String, Object>> limitStudent(int offset, int limit) {
+    public CommonResultVo<Map<String, Object>> limitStudent(int page, int pageSize) {
         Map<String, Object> map = new HashMap<>();
-        map.put("list", studentService.limit(offset, limit));
+        map.put("list", studentService.limit((page - 1) * pageSize, pageSize));
         map.put("count", studentService.count());
-        log.info("Student查询请求，offset：{}，limit：{}", offset, limit);
+        log.info("Student查询请求，page：{}，pageSize：{}", page, pageSize);
         return ResultUtil.success(map);
     }
 
     @PostMapping("/student")
     public CommonResultVo<StudentPo> insertStudent(@RequestBody StudentPo studentPo) {
-        studentService.insert(studentPo);
+        studentPo = studentService.insert(studentPo);
         log.info("Student添加请求，data：{}", studentPo);
         return ResultUtil.success(studentPo);
     }
 
     @PutMapping("/student")
     public CommonResultVo<StudentPo> updateStudent(@RequestBody StudentPo studentPo) {
-        studentService.update(studentPo);
+        studentPo = studentService.update(studentPo);
         log.info("Student修改请求，data：{}", studentPo);
         return ResultUtil.success(studentPo);
     }
 
     @DeleteMapping("/student")
     public CommonResultVo deleteStudent(@RequestBody Integer id) {
-        studentService.deleteById(id);
         log.info("Student删除请求，删除Id：{}", id);
-        return ResultUtil.success(null);
+        if (studentService.deleteById(id)) {
+            return ResultUtil.success(null);
+        }
+        return ResultUtil.fail("删除失败！", null);
     }
 
 }

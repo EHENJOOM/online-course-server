@@ -31,6 +31,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
+     * 通过学号查询单条数据
+     *
+     * @param number 学号
+     * @return 实例对象
+     */
+    @Override
+    public StudentPo getStudentByNumber(String number) {
+        return this.studentDao.getStudentByNumber(number);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

@@ -25,6 +25,16 @@ public interface TeacherDao {
     TeacherPo getTeacherById(Integer id);
 
     /**
+     * 通过工号查询单条数据
+     *
+     * @param number 工号
+     * @return 实例对象
+     */
+    @Select("select id, number, name, avatar, birth, sex, password " +
+            "from course.teacher where number = #{number}")
+    TeacherPo getTeacherByNumber(String number);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置

@@ -20,11 +20,21 @@ public interface StudentDao {
      * @param id 主键
      * @return 实例对象
      */
-    @Select("select\n" +
-            "    id, number, name, avatar, birth, sex, password, academy, major, grade, clazz\n" +
-            "    from course.student\n" +
-            "    where id = #{id}")
+    @Select("select " +
+            "id, number, name, avatar, birth, sex, password, academy, major, grade, clazz " +
+            "from course.student " +
+            "where id = #{id}")
     StudentPo getStudentById(Integer id);
+
+    /**
+     * 通过学号查询单条数据
+     *
+     * @param number 学号
+     * @return 实例对象
+     */
+    @Select("select id, number, name, avatar, birth, sex, password, academy, major, grade, clazz " +
+            "from course.student where number = #{number}")
+    StudentPo getStudentByNumber(String number);
 
     /**
      * 查询指定行数据

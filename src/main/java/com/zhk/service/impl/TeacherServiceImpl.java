@@ -31,6 +31,17 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
+     * 通过工号查询单条数据
+     *
+     * @param number 工号
+     * @return 实例对象
+     */
+    @Override
+    public TeacherPo getTeacherByNumber(String number) {
+        return this.teacherDao.getTeacherByNumber(number);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

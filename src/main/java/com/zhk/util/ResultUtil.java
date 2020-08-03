@@ -21,6 +21,16 @@ public class ResultUtil {
     }
 
     /**
+     * 服务操作失败返回给客户端的数据对象
+     * @param data 服务数据
+     * @param <T> 携带的数据类型
+     * @return {@link CommonResultVo}
+     */
+    public static <T> CommonResultVo<T> fail(String msg, T data) {
+        return new CommonResultVo<>(Config.OPERATE_FAIL, msg, data);
+    }
+
+    /**
      * 服务失败返回给客户的数据对象
      * @param code 错误码
      * @param msg 错误提示
@@ -43,6 +53,13 @@ public class ResultUtil {
         return new CommonResultVo<>(code, msg, data);
     }
 
+    /**
+     * 服务器抛出异常后返回给前端的数据对象
+     * @param msg 异常信息
+     * @param data 携带的数据
+     * @param <T> 携带的数据类型
+     * @return {@link CommonResultVo}
+     */
     public static <T> CommonResultVo<T> exception(String msg, T data) {
         return new CommonResultVo<>(Config.SERVER_ERROR, msg, data);
     }
