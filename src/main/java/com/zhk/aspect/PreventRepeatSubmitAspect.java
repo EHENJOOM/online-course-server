@@ -39,7 +39,7 @@ public class PreventRepeatSubmitAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // TODO 在后续引入token后进行修改 String token = request.getParameter("token");
-        String token = "test";
+        String token = request.getParameter("token");
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         // 获取标注的详细方法名，并将token拼接起来形成唯一key值
@@ -62,7 +62,7 @@ public class PreventRepeatSubmitAspect {
                 int lastNum = redisTemplate.opsForValue().get(key);
                 // 可访问次数小于等于0，则拒绝访问
                 if (lastNum <= 0) {
-                    return ResultUtil.error(Config.INTERFACE_BUSY, "提交过于繁忙，请稍后再试！");
+                    return ResultUtil.error(Config.INTERFACE_BUSY, "提交过于繁忙，请稍后再试！", token);
                 } else {
                     // 修改课访问次数，并放行访问
                     redisTemplate.opsForValue().set(key, lastNum - 1, interval, timeUnit);

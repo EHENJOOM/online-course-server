@@ -46,7 +46,7 @@ public class CommonResultVo<T> {
     @Override
     public String toString() {
         return "CommonResultVo{" +
-                "code='" + code + '\'' +
+                "code=" + code +
                 ", message='" + message + '\'' +
                 ", data=" + data +
                 '}';
