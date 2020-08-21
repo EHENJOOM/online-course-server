@@ -29,6 +29,22 @@ public interface StudentService {
     StudentPo getStudentByNumber(String number);
 
     /**
+     * 通过实体对象查询单条数据
+     *
+     * @param studentPo 实例对象
+     * @return 实例对象
+     */
+    List<StudentPo> getStudent(StudentPo studentPo);
+
+    /**
+     * 通过班级查找学生
+     *
+     * @param clazz 班级名
+     * @return 实例对象化列表
+     */
+    List<StudentPo> getStudentByClazz(String clazz);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

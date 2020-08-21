@@ -1,6 +1,7 @@
 package com.zhk.controller;
 
 import com.zhk.annotation.PreventRepeatSubmit;
+import com.zhk.entity.po.StudentPo;
 import com.zhk.entity.po.TeacherPo;
 import com.zhk.entity.vo.CommonResultVo;
 import com.zhk.service.TeacherService;
@@ -23,6 +24,12 @@ public class TeacherController {
 
     @Resource
     private TeacherService teacherService;
+
+    @GetMapping("/teacher/{id}")
+    public CommonResultVo<TeacherPo> getStudentById(@PathVariable("id") Integer id) {
+        log.info("Teacher精确查询请求，id：{}", id);
+        return ResultUtil.success(teacherService.getTeacherById(id));
+    }
 
     @GetMapping("/teacher")
     @PreventRepeatSubmit

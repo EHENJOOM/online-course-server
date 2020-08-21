@@ -42,6 +42,28 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
+     * 通过实体对象查询单条数据
+     *
+     * @param studentPo 实例对象
+     * @return 实例对象
+     */
+    @Override
+    public List<StudentPo> getStudent(StudentPo studentPo) {
+        return this.studentDao.getStudent(studentPo);
+    }
+
+    /**
+     * 通过班级查找学生
+     *
+     * @param clazz 班级名
+     * @return 实例对象化列表
+     */
+    @Override
+    public List<StudentPo> getStudentByClazz(String clazz) {
+        return this.studentDao.getStudentByClazz(clazz);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

@@ -37,6 +37,50 @@ public interface StudentDao {
     StudentPo getStudentByNumber(String number);
 
     /**
+     * 通过实体对象查询单条数据
+     *
+     * @param studentPo 实例对象
+     * @return 实例对象
+     */
+    @Select("<script>select id, number, name, avatar, birth, sex, password, academy, major, grade, clazz from course.student\n" +
+            "        <where>\n" +
+            "            <if test=\"id != null\">\n" +
+            "                and id = #{id}\n" +
+            "            </if>\n" +
+            "            <if test=\"number != null and number != ''\">\n" +
+            "                and number = #{number}\n" +
+            "            </if>\n" +
+            "            <if test=\"name != null and name != ''\">\n" +
+            "                and name = #{name}\n" +
+            "            </if>\n" +
+            "            <if test=\"avatar != null and avatar != ''\">\n" +
+            "                and avatar = #{avatar}\n" +
+            "            </if>\n" +
+            "            <if test=\"birth != null\">\n" +
+            "                and birth = #{birth}\n" +
+            "            </if>\n" +
+            "            <if test=\"sex != null and sex != ''\">\n" +
+            "                and sex = #{sex}\n" +
+            "            </if>\n" +
+            "            <if test=\"password != null and password != ''\">\n" +
+            "                and password = #{password}\n" +
+            "            </if>\n" +
+            "            <if test=\"academy != null and academy != ''\">\n" +
+            "                and academy = #{academy}\n" +
+            "            </if>\n" +
+            "            <if test=\"major != null and major != ''\">\n" +
+            "                and major = #{major}\n" +
+            "            </if>\n" +
+            "            <if test=\"grade != null and grade != ''\">\n" +
+            "                and grade = #{grade}\n" +
+            "            </if>\n" +
+            "            <if test=\"clazz != null and clazz != ''\">\n" +
+            "                and clazz = #{clazz}\n" +
+            "            </if>\n" +
+            "        </where></script>")
+    List<StudentPo> getStudent(StudentPo studentPo);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置
@@ -48,6 +92,15 @@ public interface StudentDao {
             "    from course.student\n" +
             "    limit #{offset}, #{limit}")
     List<StudentPo> limit(@Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 通过班级查找学生
+     *
+     * @param clazz 班级名
+     * @return 实例对象化列表
+     */
+    @Select("select id, number, name, avatar, birth, sex, password, academy, major, grade, clazz from course.student where clazz = #{clazz}")
+    List<StudentPo> getStudentByClazz(@Param("clazz") String clazz);
 
 
     /**

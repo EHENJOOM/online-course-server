@@ -1,6 +1,9 @@
 server:
   port: 8001
 
+user:
+  intercept: false
+
 spring:
   profiles:
     active: dev

@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.zhk.service.TokenService;
 import com.zhk.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -24,8 +24,18 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Resource
     private TokenService tokenService;
 
+    /**
+     * 设置是否拦截请求
+     */
+    @Value("${user.intercept}")
+    private boolean intercept = false;
+
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (!intercept) {
+            return true;
+        }
+
         String number = request.getParameter("number");
         String token = request.getParameter("token");
         // 如果number、token参数没有值，则直接拒绝访问

@@ -1,6 +1,7 @@
 package com.zhk.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.zhk.annotation.StringCache;
 import com.zhk.config.Config;
 import com.zhk.service.TokenService;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -38,14 +39,9 @@ public class TokenServiceImpl implements TokenService {
      * @return token字符串
      */
     @Override
+    @StringCache(key = "#number", prefix = "toekn")
     public String generateToken(String number) {
-        String cache = stringRedisTemplate.opsForValue().get(number);
-        if (cache != null) {
-            return cache;
-        }
-        String token = IdUtil.simpleUUID();
-        stringRedisTemplate.opsForValue().set(number, token, Config.TOKEN_LIVE_TIME, TimeUnit.MINUTES);
-        return token;
+        return IdUtil.simpleUUID();
     }
 
     /**

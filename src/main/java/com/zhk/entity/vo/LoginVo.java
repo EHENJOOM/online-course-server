@@ -8,6 +8,7 @@ package com.zhk.entity.vo;
  */
 public class LoginVo {
 
+    private Integer id;
     private String number;
     private String password;
 
@@ -53,10 +54,19 @@ public class LoginVo {
         this.user = user;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "LoginVo{" +
-                "number='" + number + '\'' +
+                "id=" + id +
+                ", number='" + number + '\'' +
                 ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
                 ", user=" + user +

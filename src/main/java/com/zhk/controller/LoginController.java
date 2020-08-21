@@ -55,6 +55,7 @@ public class LoginController {
             if (studentPo.getPassword().equals(loginVo.getPassword())) {
                 loginVo.setToken(tokenService.generateToken(loginVo.getNumber()));
                 loginVo.setUser(Config.USER_STUDENT);
+                loginVo.setId(studentPo.getId());
                 log.info("用户登录：{}", loginVo);
                 return ResultUtil.success(loginVo);
             }
@@ -66,6 +67,7 @@ public class LoginController {
             if (teacherPo.getPassword().equals(loginVo.getPassword())) {
                 loginVo.setToken(tokenService.generateToken(loginVo.getNumber()));
                 loginVo.setUser(Config.USER_TEACHER);
+                loginVo.setId(teacherPo.getId());
                 log.info("用户登录：{}", loginVo);
                 return ResultUtil.success(loginVo);
             }

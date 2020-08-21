@@ -2,6 +2,7 @@ package com.zhk.dao;
 
 import com.zhk.entity.po.TeacherPo;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
@@ -20,8 +21,17 @@ public interface TeacherDao {
      * @param id 主键
      * @return 实例对象
      */
-    @Select("select id, number, name, avatar, birth, sex, password\n" +
-            "    from course.teacher where id = #{id}")
+    @Select("select id, number, name, avatar, birth, sex, password " +
+            "from course.teacher where id = #{id}")
+    @Results(id = "teacher", value = {
+            @Result(property = "id", column = "id", id = true),
+            @Result(property = "number", column = "number", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "name", column = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "avatar", column = "avatar", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "birth", column = "birth", jdbcType = JdbcType.DATE),
+            @Result(property = "sex", column = "sex", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "password", column = "password", jdbcType = JdbcType.VARCHAR),
+    })
     TeacherPo getTeacherById(Integer id);
 
     /**

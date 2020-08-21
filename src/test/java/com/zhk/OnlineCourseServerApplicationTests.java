@@ -1,14 +1,9 @@
 package com.zhk;
 
-import com.zhk.entity.po.StudentPo;
 import com.zhk.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 
 @SpringBootTest
 class OnlineCourseServerApplicationTests {
@@ -31,5 +26,4 @@ class OnlineCourseServerApplicationTests {
         studentService.insert(studentPo);*/
         System.out.println(studentService.getStudentById(2));
     }
-
 }
