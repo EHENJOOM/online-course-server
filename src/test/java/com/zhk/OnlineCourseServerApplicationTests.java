@@ -26,4 +26,13 @@ class OnlineCourseServerApplicationTests {
         studentService.insert(studentPo);*/
         System.out.println(studentService.getStudentById(2));
     }
+
+    @Test
+    void testSplit() {
+        String file = "abcde";
+        String[] splits = file.split("\\.");
+        for (String split : splits) {
+            System.out.println(split);
+        }
+    }
 }

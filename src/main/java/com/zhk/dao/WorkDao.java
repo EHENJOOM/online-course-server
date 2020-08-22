@@ -57,6 +57,18 @@ public interface WorkDao {
     @Select("select * from course.work limit #{offset}, #{limit}")
     List<WorkPo> limit(@Param("offset") int offset, @Param("limit") int limit);
 
+    /**
+     * 通过teacherId查询指定行数据
+     *
+     * @param courseId 课程ID
+     * @param teacherId 教师ID
+     * @param offset 查询起始位置
+     * @param limit  查询条数
+     * @return 对象列表
+     */
+    @ResultMap("work")
+    @Select("select * from course.work w, course.course c where w.courseId = #{courseId} and w.courseId = c.id and c.teacherId = #{teacherId} limit #{offset}, #{limit}")
+    List<WorkPo> limitByTeacherId(@Param("courseId") Integer courseId, @Param("teacherId") Integer teacherId, @Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * 通过实体作为筛选条件查询
@@ -91,7 +103,7 @@ public interface WorkDao {
      * @param workPo 实例对象
      * @return 影响行数
      */
-    @Update("update course.work\n" +
+    @Update("<script>update course.work\n" +
             "        <set>\n" +
             "            <if test=\"coursePo != null and coursePo.id != null\">\n" +
             "                courseId = #{coursePo.id},\n" +
@@ -115,7 +127,7 @@ public interface WorkDao {
             "                deadline = #{deadline},\n" +
             "            </if>\n" +
             "        </set>\n" +
-            "        where id = #{id}")
+            "        where id = #{id}</script>")
     int update(WorkPo workPo);
 
     /**

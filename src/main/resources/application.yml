@@ -7,6 +7,8 @@ user:
 spring:
   profiles:
     active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   application:
     name: online-course-server
   datasource:
@@ -20,7 +22,11 @@ spring:
   redis:
     host: 101.200.49.246
 
-
+  minio:
+    url: http://101.200.49.246:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket: work
 
 ---
 

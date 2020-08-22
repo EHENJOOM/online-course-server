@@ -55,6 +55,20 @@ public class WorkServiceImpl implements WorkService {
     }
 
     /**
+     * 通过teacherId查询指定行数据
+     *
+     * @param courseId 课程ID
+     * @param teacherId 教师ID
+     * @param offset 查询起始位置
+     * @param limit  查询条数
+     * @return 对象列表
+     */
+    @Override
+    public List<WorkPo> limitByTeacherId(Integer courseId, Integer teacherId, int offset, int limit) {
+        return this.workDao.limitByTeacherId(courseId, teacherId, offset, limit);
+    }
+
+    /**
      * 查询记录总数
      *
      * @return 记录数

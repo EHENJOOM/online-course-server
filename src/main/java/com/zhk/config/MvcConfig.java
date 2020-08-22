@@ -1,5 +1,6 @@
 package com.zhk.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,6 +23,20 @@ public class MvcConfig implements WebMvcConfigurer {
     public LoginHandlerInterceptor loginHandlerInterceptor() {
         return new LoginHandlerInterceptor();
     }
+
+    /**
+     * 将自定义的Filter加入到容器中
+     * @return
+     */
+    //@Bean
+    public FilterRegistrationBean<BodyReaderFilter> filters() {
+        FilterRegistrationBean<BodyReaderFilter> registrationBean = new FilterRegistrationBean<BodyReaderFilter>();
+        registrationBean.setFilter(new BodyReaderFilter());
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setName("koalaSignFilter");
+        return registrationBean;
+    }
+
 
     /**
      * 注册拦截器，除了/login请求不拦截，其余资源均拦截

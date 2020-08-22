@@ -44,6 +44,26 @@ public class WorkPo implements Serializable {
      */
     private CoursePo coursePo;
 
+    /**
+     * 作业已发布
+     */
+    public static int PUBLISHED = 1;
+
+    /**
+     * 作业未发布
+     */
+    public static int NOT_PUBLISH = 0;
+
+    /**
+     * 只允许提交一次
+     */
+    public static int ONE_PERMIT = 1;
+
+    /**
+     * 可以提交多次
+     */
+    public static int MANY_PERMIT = 2;
+
 
     public Integer getId() {
         return id;

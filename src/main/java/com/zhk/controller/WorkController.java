@@ -47,6 +47,17 @@ public class WorkController {
         return ResultUtil.success(workService.getWorkByCourseAndTeacher(courseId, teacherPo.getId()));
     }
 
+    @GetMapping("/work/{teacherId}/{courseId}/{page}/{pageSize}")
+    public CommonResultVo limitWorkByTeacherId(@PathVariable("courseId") Integer courseId, @PathVariable("teacherId") Integer teacherId, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+        log.info("根据teacherId查询指定行数的数据，teacherId：{}", teacherId);
+        List<WorkPo> workPoList = workService.limitByTeacherId(courseId, teacherId, (page - 1) * pageSize, pageSize);
+        int count = workService.count();
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", count);
+        map.put("list", workPoList);
+        return ResultUtil.success(map);
+    }
+
     @GetMapping("/work/{page}/{pageSize}")
     public CommonResultVo<Map<String, Object>> getWorkByLimit(@PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
@@ -78,10 +89,23 @@ public class WorkController {
         return ResultUtil.success("插入成功！");
     }
 
+    @PutMapping("/work/publish")
+    public CommonResultVo publishWork(@RequestBody WorkPo workPo) {
+        workPo.setPublish(WorkPo.PUBLISHED);
+        workPo.setPublishTime(new Date());
+        if (workPo.getId() == null || workPo.getId() < 0) {
+            workPo = workService.insert(workPo);
+        } else {
+            workPo = workService.update(workPo);
+        }
+        log.info("发布作业，data：{}", workPo);
+        return ResultUtil.success("发布成功！");
+    }
+
     @PutMapping("/work")
     public CommonResultVo<WorkPo> updateWork(@RequestBody WorkPo workPo) {
         workPo = workService.update(workPo);
-        log.info("修改作业，修改后：{}", workPo);
+        log.info("修改作业信息，修改后：{}", workPo);
         return ResultUtil.success(workPo);
     }
 
