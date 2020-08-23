@@ -60,6 +60,8 @@ public class FileController {
 
     @GetMapping("/file/{fileName}")
     public void getFile(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException, MinioException {
+        log.info("下载文件：{}", fileName);
+
         InputStream inputStream = minioService.get(Paths.get(fileName));
 
         response.addHeader("Content-disposition", "attachment;filename=" + fileName);

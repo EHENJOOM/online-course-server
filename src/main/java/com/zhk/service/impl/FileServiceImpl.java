@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
      * @return 记录数
      */
     @Override
-    public Integer countByCourseAndTeacher(Integer courseId, Integer teacherId) {
+    public int countByCourseAndTeacher(Integer courseId, Integer teacherId) {
         return this.fileDao.countByCourseAndTeacher(courseId, teacherId);
     }
 

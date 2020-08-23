@@ -32,7 +32,7 @@ public class ResourceController {
     @PostMapping("/resource")
     public CommonResultVo addResource(@RequestBody Map map) {
         log.info("添加资源：{}", map.get("resourceVo"));
-        resourceService.saveResource((Map) map.get("resourceVo"), (Integer) map.get("courseId"), (Integer) map.get("teacherId"));
+        resourceService.saveResource((Map) map.get("resourceVo"), Integer.valueOf((String) map.get("courseId")), Integer.valueOf((String) map.get("teacherId")));
         return ResultUtil.success("成功！");
     }
 

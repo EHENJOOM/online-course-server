@@ -50,9 +50,8 @@ public interface FileDao {
      * @param teacherId 教师ID
      * @return 记录数
      */
-    @ResultMap("file")
     @Select("select count(*) from course.file where teacher_id = #{teacherId} and course_id = #{courseId}")
-    Integer countByCourseAndTeacher(@Param("courseId") Integer courseId, @Param("teacherId") Integer teacherId);
+    int countByCourseAndTeacher(@Param("courseId") Integer courseId, @Param("teacherId") Integer teacherId);
 
     /**
      * 查询指定行数据

@@ -38,7 +38,7 @@ public interface FileService {
      * @param teacherId 教师ID
      * @return 记录数
      */
-    Integer countByCourseAndTeacher(Integer courseId, Integer teacherId);
+    int countByCourseAndTeacher(Integer courseId, Integer teacherId);
 
     /**
      * 查询多条数据

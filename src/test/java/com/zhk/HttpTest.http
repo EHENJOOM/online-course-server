@@ -1,0 +1,24 @@
+###
+GET http://localhost:8001/file/1/2/1/5
+Accept: application/json
+
+###
+DELETE http://localhost:8001/topic/1
+Accept: application/json
+
+###
+POST http://localhost:8001/topic
+Content-Type: application/json
+Accept: application/json
+
+{
+  "coursePo": {
+    "id": 1
+  },
+  "id": 2,
+  "publishTime": "2020-08-23 15:21:12"
+}
+
+###
+GET http://localhost:8001/topic/1
+Accept: application/json

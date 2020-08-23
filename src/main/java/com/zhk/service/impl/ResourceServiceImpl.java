@@ -29,7 +29,7 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public void saveResource(Map resource, Integer courseId, Integer teacherId) {
-        redisTemplate.opsForValue().set(courseId + "-" + teacherId, resource);
+        redisTemplate.opsForValue().set("res-cou-tea-" + courseId + "-" + teacherId, resource);
     }
 
     /**
@@ -41,6 +41,6 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public LinkedHashMap getResource(Integer courseId, Integer teacherId) {
-        return (LinkedHashMap) redisTemplate.opsForValue().get(courseId + "-" + teacherId);
+        return (LinkedHashMap) redisTemplate.opsForValue().get("res-cou-tea-" + courseId + "-" + teacherId);
     }
 }
