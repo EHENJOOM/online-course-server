@@ -22,3 +22,13 @@ Accept: application/json
 ###
 GET http://localhost:8001/topic/1
 Accept: application/json
+
+###
+PUT http://localhost:8001/officer
+Content-Type: application/json
+Accept: application/json
+
+{
+  "number": "2008050321",
+  "academy": "信息科学与技术学院"
+}

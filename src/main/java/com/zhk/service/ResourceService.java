@@ -1,7 +1,5 @@
 package com.zhk.service;
 
-import com.zhk.entity.vo.ResourceVo;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,17 +15,15 @@ public interface ResourceService {
      *
      * @param resource 资源
      * @param courseId 课程ID
-     * @param teacherId 教师ID
      */
-    void saveResource(Map resource, Integer courseId, Integer teacherId);
+    void saveResource(Map resource, Integer courseId);
 
     /**
-     * 根据课程ID和教师ID查询资源列表
+     * 根据课程ID查询资源列表
      *
      * @param courseId 课程ID
-     * @param teacherId 教师ID
      * @return 资源列表
      */
-    LinkedHashMap getResource(Integer courseId, Integer teacherId);
+    LinkedHashMap getResource(Integer courseId);
 
 }

@@ -74,7 +74,7 @@ public class WorkController {
         Map<String, Object> data = new HashMap<>();
         long total = submitWorkPoList.size();
         data.put("total", total);
-        long notSubmit = total - submitWorkPoList.stream().filter(temp -> temp.getStatus() == Config.NOT_SUBMIT).count();
+        long notSubmit = submitWorkPoList.stream().filter(temp -> temp.getStatus() == Config.NOT_SUBMIT).count();
         data.put("notSubmit", notSubmit);
         long checked = submitWorkPoList.stream().filter(temp -> temp.getStatus() == Config.CHECKED).count();
         data.put("checked", checked);

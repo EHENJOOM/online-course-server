@@ -44,6 +44,11 @@ public class CoursePo implements Serializable {
      */
     private String img;
 
+    /**
+     * 所属学院
+     */
+    private String academy;
+
 
     public Integer getId() {
         return id;
@@ -109,6 +114,14 @@ public class CoursePo implements Serializable {
         this.teacherPo = teacherPo;
     }
 
+    public String getAcademy() {
+        return academy;
+    }
+
+    public void setAcademy(String academy) {
+        this.academy = academy;
+    }
+
     @Override
     public String toString() {
         return "CoursePo{" +
@@ -120,6 +133,7 @@ public class CoursePo implements Serializable {
                 ", code='" + code + '\'' +
                 ", teacherPo=" + teacherPo +
                 ", img='" + img + '\'' +
+                ", academy='" + academy + '\'' +
                 '}';
     }
 }

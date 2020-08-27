@@ -37,7 +37,7 @@ public class StudentController {
     public CommonResultVo<Map<String, Object>> limitStudent(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("list", studentService.limit((page - 1) * pageSize, pageSize));
-        map.put("count", studentService.count());
+        map.put("total", studentService.count());
         log.info("Student分页查询请求，page：{}，pageSize：{}", page, pageSize);
         return ResultUtil.success(map);
     }
@@ -66,8 +66,8 @@ public class StudentController {
         return ResultUtil.success(studentPo);
     }
 
-    @DeleteMapping("/student")
-    public CommonResultVo deleteStudent(@RequestBody Integer id) {
+    @DeleteMapping("/student/{studentId}")
+    public CommonResultVo deleteStudent(@PathVariable("studentId") Integer id) {
         log.info("Student删除请求，删除Id：{}", id);
         if (studentService.deleteById(id)) {
             return ResultUtil.success(null);

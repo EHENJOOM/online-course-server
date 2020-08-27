@@ -25,22 +25,20 @@ public class ResourceServiceImpl implements ResourceService {
      *
      * @param resource 资源
      * @param courseId   课程ID
-     * @param teacherId  教师ID
      */
     @Override
-    public void saveResource(Map resource, Integer courseId, Integer teacherId) {
-        redisTemplate.opsForValue().set("res-cou-tea-" + courseId + "-" + teacherId, resource);
+    public void saveResource(Map resource, Integer courseId) {
+        redisTemplate.opsForValue().set("res-cou-tea-" + courseId, resource);
     }
 
     /**
      * 根据课程ID和教师ID查询资源列表
      *
      * @param courseId  课程ID
-     * @param teacherId 教师ID
      * @return 资源列表
      */
     @Override
-    public LinkedHashMap getResource(Integer courseId, Integer teacherId) {
-        return (LinkedHashMap) redisTemplate.opsForValue().get("res-cou-tea-" + courseId + "-" + teacherId);
+    public LinkedHashMap getResource(Integer courseId) {
+        return (LinkedHashMap) redisTemplate.opsForValue().get("res-cou-tea-" + courseId);
     }
 }

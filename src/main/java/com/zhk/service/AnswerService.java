@@ -29,6 +29,16 @@ public interface AnswerService {
     List<AnswerPo> getAnswerByTopic(Integer topicId);
 
     /**
+     * 通过topicId查询指定条数答疑信息
+     *
+     * @param topicId 主题ID
+     * @param offset 便宜
+     * @param limit 查询数
+     * @return 对象列表
+     */
+    List<AnswerPo> getAnswerByTopicAndLimit(Integer topicId, Integer offset, Integer limit);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
@@ -36,6 +46,14 @@ public interface AnswerService {
      * @return 对象列表
      */
     List<AnswerPo> limit(int offset, int limit);
+
+    /**
+     * 通过话题ID查询总条数
+     *
+     * @param topicId 话题ID
+     * @return 记录数
+     */
+    Integer countAnswerByTopic(Integer topicId);
 
     /**
      * 新增数据

@@ -21,7 +21,7 @@ public interface TeacherDao {
      * @param id 主键
      * @return 实例对象
      */
-    @Select("select id, number, name, avatar, birth, sex, password " +
+    @Select("select id, number, name, avatar, birth, sex, password, academy " +
             "from course.teacher where id = #{id}")
     @Results(id = "teacher", value = {
             @Result(property = "id", column = "id", id = true),
@@ -31,6 +31,7 @@ public interface TeacherDao {
             @Result(property = "birth", column = "birth", jdbcType = JdbcType.DATE),
             @Result(property = "sex", column = "sex", jdbcType = JdbcType.VARCHAR),
             @Result(property = "password", column = "password", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "academy", column = "academy", jdbcType = JdbcType.VARCHAR),
     })
     TeacherPo getTeacherById(Integer id);
 
@@ -40,9 +41,20 @@ public interface TeacherDao {
      * @param number 工号
      * @return 实例对象
      */
-    @Select("select id, number, name, avatar, birth, sex, password " +
+    @ResultMap("teacher")
+    @Select("select id, number, name, avatar, birth, sex, password, academy " +
             "from course.teacher where number = #{number}")
     TeacherPo getTeacherByNumber(String number);
+
+    /**
+     * 通过学院查询全部数据
+     *
+     * @param academy 学院
+     * @return 对象列表
+     */
+    @ResultMap("teacher")
+    @Select("select id, number, name, avatar, birth, sex, password, academy from course.teacher where academy = #{academy}")
+    List<TeacherPo> getTeacherByAcademy(String academy);
 
     /**
      * 查询指定行数据
@@ -51,7 +63,8 @@ public interface TeacherDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    @Select("select id, number, name, avatar, birth, sex, password\n" +
+    @ResultMap("teacher")
+    @Select("select id, number, name, avatar, birth, sex, password, academy\n" +
             "    from course.teacher limit #{offset}, #{limit}")
     List<TeacherPo> limit(@Param("offset") int offset, @Param("limit") int limit);
 
@@ -61,8 +74,8 @@ public interface TeacherDao {
      *
      * @return 对象列表
      */
-    @Select("select id, number, name, avatar, birth, sex, password\n" +
-            "    from course.teacher")
+    @ResultMap("teacher")
+    @Select("select id, number, name, avatar, birth, sex, password, academy from course.teacher")
     List<TeacherPo> list();
 
     /**
@@ -80,8 +93,8 @@ public interface TeacherDao {
      * @return 影响行数
      */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into course.teacher(number, name, avatar, birth, sex, password)\n" +
-            "    values (#{number}, #{name}, #{avatar}, #{birth}, #{sex}, #{password})")
+    @Insert("insert into course.teacher(number, name, avatar, birth, sex, password, academy)\n" +
+            "    values (#{number}, #{name}, #{avatar}, #{birth}, #{sex}, #{password}, #{academy})")
     int insert(TeacherPo teacherPo);
 
     /**
@@ -106,6 +119,9 @@ public interface TeacherDao {
             "            </if>\n" +
             "            <if test=\"password != null and password != ''\">\n" +
             "                password = #{password},\n" +
+            "            </if>\n" +
+            "            <if test=\"academy != null and academy != ''\">\n" +
+            "                academy = #{academy},\n" +
             "            </if>\n" +
             "        </set>\n" +
             "        where id = #{id}")

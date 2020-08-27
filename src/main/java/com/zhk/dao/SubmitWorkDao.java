@@ -58,6 +58,38 @@ public interface SubmitWorkDao {
     List<SubmitWorkPo> getSubmitWorkByWorkId(@Param("workId") Integer workId);
 
     /**
+     * 通过StudentId查询数据
+     *
+     * @param studentId 学生ID
+     * @param courseId 课程ID
+     * @return 对象列表
+     */
+    @ResultMap("submitWork")
+    @Select("select * from course.submit_work s, course.work w where s.studentId = #{studentId} and s.workId = w.id and w.courseId = #{courseId} ")
+    List<SubmitWorkPo> getSubmitWorkByStudentAndCourse(@Param("studentId") Integer studentId, @Param("courseId") Integer courseId);
+
+    /**
+     * 通过workId获取数据独享
+     *
+     * @param workId 作业ID
+     * @param offset 偏移
+     * @param limit 指定条数据
+     * @return 对象列表
+     */
+    @ResultMap("submitWork")
+    @Select("select * from course.submit_work s where workId = #{workId} limit #{offset}, #{limit}")
+    List<SubmitWorkPo> getSubmitWorkByWorkAndLimit(@Param("workId") Integer workId, @Param("offset") Integer offset, @Param("limit") Integer limit);
+
+    /**
+     * 计算负荷workId的数据条数
+     *
+     * @param workId 作业ID
+     * @return 总数
+     */
+    @Select("select count(*) from course.submit_work where workId = #{workId}")
+    Integer countSubmitWorkByWorkAndLimit(@Param("workId") Integer workId);
+
+    /**
      * 通过实体作为筛选条件查询
      *
      * @param submitWorkPo 实例对象

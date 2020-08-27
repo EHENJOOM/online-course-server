@@ -22,9 +22,9 @@ public class ResourceController {
     @Resource
     private ResourceService resourceService;
 
-    @GetMapping("/resource/{courseId}/{teacherId}")
-    public CommonResultVo getResource(@PathVariable("courseId") Integer courseId, @PathVariable("teacherId") Integer teacherId) {
-        LinkedHashMap resource = resourceService.getResource(courseId, teacherId);
+    @GetMapping("/resource/{courseId}")
+    public CommonResultVo getResource(@PathVariable("courseId") Integer courseId) {
+        LinkedHashMap resource = resourceService.getResource(courseId);
         log.info("根据courseId和teacherId查询资源列表：{}", resource);
         return ResultUtil.success(resource);
     }
@@ -32,7 +32,7 @@ public class ResourceController {
     @PostMapping("/resource")
     public CommonResultVo addResource(@RequestBody Map map) {
         log.info("添加资源：{}", map.get("resourceVo"));
-        resourceService.saveResource((Map) map.get("resourceVo"), Integer.valueOf((String) map.get("courseId")), Integer.valueOf((String) map.get("teacherId")));
+        resourceService.saveResource((Map) map.get("resourceVo"), Integer.valueOf((String) map.get("courseId")));
         return ResultUtil.success("成功！");
     }
 

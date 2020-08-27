@@ -31,6 +31,30 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     /**
+     * 通过topicId查询指定条数答疑信息
+     *
+     * @param topicId 主题ID
+     * @param offset  便宜
+     * @param limit   查询数
+     * @return 对象列表
+     */
+    @Override
+    public List<AnswerPo> getAnswerByTopicAndLimit(Integer topicId, Integer offset, Integer limit) {
+        return this.answerDao.getAnswerByTopicAndLimit(topicId, offset, limit);
+    }
+
+    /**
+     * 通过话题ID查询总条数
+     *
+     * @param topicId 话题ID
+     * @return 记录数
+     */
+    @Override
+    public Integer countAnswerByTopic(Integer topicId) {
+        return this.answerDao.countAnswerByTopic(topicId);
+    }
+
+    /**
      * 通过topicId查询答疑信息
      *
      * @param topicId 主题ID
@@ -38,7 +62,9 @@ public class AnswerServiceImpl implements AnswerService {
      */
     @Override
     public List<AnswerPo> getAnswerByTopic(Integer topicId) {
-        return null;
+        return this.answerDao.getAnswerByTopic(topicId);
+
+
     }
 
     /**

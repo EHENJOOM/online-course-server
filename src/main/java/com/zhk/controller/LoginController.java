@@ -1,13 +1,13 @@
 package com.zhk.controller;
 
 import com.zhk.config.Config;
+import com.zhk.entity.po.AdminPo;
+import com.zhk.entity.po.OfficerPo;
 import com.zhk.entity.po.StudentPo;
 import com.zhk.entity.po.TeacherPo;
 import com.zhk.entity.vo.CommonResultVo;
 import com.zhk.entity.vo.LoginVo;
-import com.zhk.service.StudentService;
-import com.zhk.service.TeacherService;
-import com.zhk.service.TokenService;
+import com.zhk.service.*;
 import com.zhk.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +29,12 @@ public class LoginController {
 
     @Resource
     private TeacherService teacherService;
+
+    @Resource
+    private OfficerService officerService;
+
+    @Resource
+    private AdminService adminService;
 
     @Resource
     private TokenService tokenService;
@@ -59,6 +65,7 @@ public class LoginController {
                 log.info("用户登录：{}", loginVo);
                 return ResultUtil.success(loginVo);
             }
+
             return ResultUtil.fail("密码错误！", loginVo);
         }
 
@@ -73,6 +80,29 @@ public class LoginController {
             }
             return ResultUtil.fail("密码错误！", loginVo);
         }
+
+        OfficerPo officerPo = officerService.getOfficerByNumber(loginVo.getNumber());
+        if (officerPo != null) {
+            if (officerPo.getPassword().equals(loginVo.getPassword())) {
+                loginVo.setToken(tokenService.generateToken(loginVo.getNumber()));
+                loginVo.setUser(Config.USER_OFFICER);
+                loginVo.setId(officerPo.getId());
+                log.info("用户登录：{}", loginVo);
+                return ResultUtil.success(loginVo);
+            }
+        }
+
+        AdminPo adminPo = adminService.getAdminByNumber(loginVo.getNumber());
+        if (adminPo != null) {
+            if (adminPo.getPassword().equals(loginVo.getPassword())) {
+                loginVo.setToken(tokenService.generateToken(loginVo.getNumber()));
+                loginVo.setUser(Config.USER_ADMIN);
+                loginVo.setId(adminPo.getId());
+                log.info("用户登录：{}", loginVo);
+                return ResultUtil.success(loginVo);
+            }
+        }
+
         return ResultUtil.fail("账号不存在！", loginVo);
     }
 

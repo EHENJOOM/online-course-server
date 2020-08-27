@@ -21,7 +21,7 @@ public class ClazzPo implements Serializable {
     /**
      * 课程ID
      */
-    private Integer courseId;
+    private CoursePo coursePo;
 
 
     public Integer getId() {
@@ -40,12 +40,12 @@ public class ClazzPo implements Serializable {
         this.studentId = studentId;
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public CoursePo getCoursePo() {
+        return coursePo;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCoursePo(CoursePo coursePo) {
+        this.coursePo = coursePo;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ClazzPo implements Serializable {
         return "ClazzPo{" +
                 "id=" + id +
                 ", studentId=" + studentId +
-                ", courseId=" + courseId +
+                ", courseId=" + coursePo +
                 '}';
     }
 }

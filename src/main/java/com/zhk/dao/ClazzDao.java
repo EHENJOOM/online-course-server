@@ -1,7 +1,9 @@
 package com.zhk.dao;
 
 import com.zhk.entity.po.ClazzPo;
+import com.zhk.entity.po.CoursePo;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
@@ -20,13 +22,23 @@ public interface ClazzDao {
      * @param id 主键
      * @return 实例对象
      */
-    @Select("select id, studentId, courseId from course.clazz where id = #{id}")
+    @Select("select * from course.clazz where id = #{id}")
     @Results(id = "clazz", value = {
             @Result(property="id", column="id", id = true),
             @Result(property="studentId", column="studentId", jdbcType = JdbcType.INTEGER),
-            @Result(property="courseId", column="courseId", jdbcType = JdbcType.INTEGER),
+            @Result(property="coursePo", column="courseId", javaType = CoursePo.class, one = @One(select = "com.zhk.dao.CourseDao.getCourseById", fetchType = FetchType.EAGER)),
     })
     ClazzPo getClazzById(Integer id);
+
+    /**
+     * 通过学生ID查询多条数据
+     *
+     * @param studentId 学生ID
+     * @return 对象列表
+     */
+    @ResultMap("clazz")
+    @Select("select * from course.clazz where studentId = #{studentId}")
+    List<ClazzPo> getClazzByStudent(@Param("studentId") Integer studentId);
 
     /**
      * 查询指定行数据
@@ -36,7 +48,7 @@ public interface ClazzDao {
      * @return 对象列表
      */
     @ResultMap("clazz")
-    @Select("select id, studentId, courseId from course.clazz limit #{offset}, #{limit}")
+    @Select("select * from course.clazz limit #{offset}, #{limit}")
     List<ClazzPo> limit(@Param("offset") int offset, @Param("limit") int limit);
 
 
@@ -47,7 +59,7 @@ public interface ClazzDao {
      * @return 对象列表
      */
     @ResultMap("clazz")
-    @Select("select id, studentId, courseId from course.clazz")
+    @Select("select * from course.clazz")
     List<ClazzPo> list(ClazzPo clazzPo);
 
     /**
@@ -57,7 +69,7 @@ public interface ClazzDao {
      * @return 影响行数
      */
     @ResultMap("clazz")
-    @Insert("insert into course.clazz(studentId, courseId) values (#{studentId}, #{courseId})")
+    @Insert("insert into course.clazz(studentId, courseId) values (#{studentId}, #{coursePo.id})")
     int insert(ClazzPo clazzPo);
 
     /**
@@ -68,7 +80,7 @@ public interface ClazzDao {
      */
     @Insert("<script>insert into course.clazz(studentId, courseId) values\n" +
             "        <foreach collection='list' item='item' index='index' separator=','>\n" +
-            "            (#{item.studentId}, #{item.courseId})\n" +
+            "            (#{item.studentId}, #{item.coursePo.id})\n" +
             "        </foreach></script>")
     @ResultMap("clazz")
     int insertClazzList(List<ClazzPo> clazzPoList);
@@ -84,8 +96,8 @@ public interface ClazzDao {
             "            <if test=\"studentId != null\">\n" +
             "                studentId = #{studentId},\n" +
             "            </if>\n" +
-            "            <if test=\"courseId != null\">\n" +
-            "                courseId = #{courseId},\n" +
+            "            <if test=\"coursePo != null and coursePo.id != null\">\n" +
+            "                courseId = #{coursePo.id},\n" +
             "            </if>\n" +
             "        </set>\n" +
             "        where id = #{id}</script>")

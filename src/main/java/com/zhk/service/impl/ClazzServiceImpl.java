@@ -43,6 +43,17 @@ public class ClazzServiceImpl implements ClazzService {
     }
 
     /**
+     * 通过学生ID查询多条数据
+     *
+     * @param studentId 学生ID
+     * @return 对象列表
+     */
+    @Override
+    public List<ClazzPo> getClazzByStudent(Integer studentId) {
+        return this.clazzDao.getClazzByStudent(studentId);
+    }
+
+    /**
      * 新增数据
      *
      * @param clazzPo 实例对象

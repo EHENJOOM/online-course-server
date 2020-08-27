@@ -54,6 +54,42 @@ public class SubmitWorkServiceImpl implements SubmitWorkService {
     }
 
     /**
+     * 通过StudentId查询数据
+     *
+     * @param studentId 学生ID
+     * @param courseId 课程ID
+     * @return 对象列表
+     */
+    @Override
+    public List<SubmitWorkPo> getSubmitWorkByStudentAndCourse(Integer studentId, Integer courseId) {
+        return this.submitWorkDao.getSubmitWorkByStudentAndCourse(studentId, courseId);
+    }
+
+    /**
+     * 通过workId获取数据独享
+     *
+     * @param workId 作业ID
+     * @param offset 偏移
+     * @param limit  指定条数据
+     * @return 对象列表
+     */
+    @Override
+    public List<SubmitWorkPo> getSubmitWorkByWorkAndLimit(Integer workId, Integer offset, Integer limit) {
+        return this.submitWorkDao.getSubmitWorkByWorkAndLimit(workId, offset, limit);
+    }
+
+    /**
+     * 计算负荷workId的数据条数
+     *
+     * @param workId 作业ID
+     * @return 总数
+     */
+    @Override
+    public Integer countSubmitWorkByWorkAndLimit(Integer workId) {
+        return this.submitWorkDao.countSubmitWorkByWorkAndLimit(workId);
+    }
+
+    /**
      * 新增数据
      *
      * @param submitWorkPo 实例对象

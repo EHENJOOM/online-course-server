@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,14 +27,13 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @GetMapping("/teacher/{id}")
-    public CommonResultVo<TeacherPo> getStudentById(@PathVariable("id") Integer id) {
+    public CommonResultVo<TeacherPo> getTeacherById(@PathVariable("id") Integer id) {
         log.info("Teacher精确查询请求，id：{}", id);
         return ResultUtil.success(teacherService.getTeacherById(id));
     }
 
     @GetMapping("/teacher")
-    @PreventRepeatSubmit
-    public CommonResultVo<Map<String, Object>> limitStudent(int page, int pageSize) {
+    public CommonResultVo<Map<String, Object>> limitTeacher(int page, int pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("list", teacherService.limit((page - 1) * pageSize, pageSize));
         map.put("count", teacherService.count());
@@ -41,22 +41,34 @@ public class TeacherController {
         return ResultUtil.success(map);
     }
 
+    @GetMapping("/teacher/all")
+    public CommonResultVo<List<TeacherPo>> listTeacher() {
+        log.info("Teacher查询所有");
+        return ResultUtil.success(teacherService.list());
+    }
+
+    @GetMapping("/teacher/academy")
+    public CommonResultVo<List<TeacherPo>> getTeacherByAcademy(String academy) {
+        log.info("Teacher按学院查询请求，academy：{}", academy);
+        return ResultUtil.success(teacherService.getTeacherByAcademy(academy));
+    }
+
     @PostMapping("/teacher")
-    public CommonResultVo<TeacherPo> insertStudent(@RequestBody TeacherPo teacherPo) {
+    public CommonResultVo<TeacherPo> insertTeacher(@RequestBody TeacherPo teacherPo) {
         teacherPo = teacherService.insert(teacherPo);
         log.info("Teacher添加请求，data：{}", teacherPo);
         return ResultUtil.success(teacherPo);
     }
 
     @PutMapping("/teacher")
-    public CommonResultVo<TeacherPo> updateStudent(@RequestBody TeacherPo teacherPo) {
+    public CommonResultVo<TeacherPo> updateTeacher(@RequestBody TeacherPo teacherPo) {
         teacherPo = teacherService.update(teacherPo);
         log.info("Teacher修改请求，data：{}", teacherPo);
         return ResultUtil.success(teacherPo);
     }
 
-    @DeleteMapping("/teacher")
-    public CommonResultVo deleteStudent(@RequestBody Integer id) {
+    @DeleteMapping("/teacher/{teacherId}")
+    public CommonResultVo<String> deleteTeacher(@PathVariable("teacherId") Integer id) {
         log.info("Teacher删除请求，删除Id：{}", id);
         if (teacherService.deleteById(id)) {
             return ResultUtil.success(null);

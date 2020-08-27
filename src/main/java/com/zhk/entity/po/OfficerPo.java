@@ -1,52 +1,43 @@
 package com.zhk.entity.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
- * (Teacher)实体类
+ * (Officer)实体类
  *
  * @author 赵洪苛
- * @date 2020/08/01 11:01
+ * @since 2020-08-24 21:30:26
  */
-public class TeacherPo implements Serializable {
-    private static final long serialVersionUID = 458263320841866395L;
+public class OfficerPo implements Serializable {
+    private static final long serialVersionUID = -59414270722007364L;
     /**
-     * 教师信息唯一标识
+     * 院教务员唯一ID
      */
     private Integer id;
     /**
-     * 教师工号
-     */
-    private String number;
-    /**
-     * 姓名
+     * 院教务员姓名
      */
     private String name;
     /**
-     * 头像地址
+     * 院教务员头像地址
      */
     private String avatar;
     /**
-     * 生日
+     * 工号
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Timestamp birth;
+    private String number;
+    /**
+     * 登录密码
+     */
+    private String password;
+    /**
+     * 所属学院
+     */
+    private String academy;
     /**
      * 性别
      */
     private String sex;
-    /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 教师所属学院
-     */
-    private String academy;
 
 
     public Integer getId() {
@@ -55,14 +46,6 @@ public class TeacherPo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public String getName() {
@@ -81,20 +64,12 @@ public class TeacherPo implements Serializable {
         this.avatar = avatar;
     }
 
-    public Timestamp getBirth() {
-        return birth;
+    public String getNumber() {
+        return number;
     }
 
-    public void setBirth(Timestamp birth) {
-        this.birth = birth;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getPassword() {
@@ -113,17 +88,24 @@ public class TeacherPo implements Serializable {
         this.academy = academy;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public String toString() {
-        return "TeacherPo{" +
+        return "OfficerPo{" +
                 "id=" + id +
-                ", number='" + number + '\'' +
                 ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", birth=" + birth +
-                ", sex='" + sex + '\'' +
+                ", number='" + number + '\'' +
                 ", password='" + password + '\'' +
                 ", academy='" + academy + '\'' +
+                ", sex='" + sex + '\'' +
                 '}';
     }
 }

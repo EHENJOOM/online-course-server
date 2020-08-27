@@ -43,6 +43,30 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
+     * 根据学院查询指定行数
+     *
+     * @param academy 学院
+     * @param offset  查询起始位置
+     * @param limit   查询条数
+     * @return 对象列表
+     */
+    @Override
+    public List<CoursePo> limitByAcademy(String academy, int offset, int limit) {
+        return this.courseDao.limitByAcademy(academy, offset, limit);
+    }
+
+    /**
+     * 通过学院名查询记录数
+     *
+     * @param academy 学院名
+     * @return 记录数
+     */
+    @Override
+    public Integer countByAcademy(String academy) {
+        return this.courseDao.countByAcademy(academy);
+    }
+
+    /**
      * 根据教师ID查询对应的课程
      *
      * @param id 教师ID

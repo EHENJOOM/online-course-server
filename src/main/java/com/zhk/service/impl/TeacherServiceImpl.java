@@ -42,6 +42,17 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
+     * 通过学院查询全部数据
+     *
+     * @param academy 学院
+     * @return 对象列表
+     */
+    @Override
+    public List<TeacherPo> getTeacherByAcademy(String academy) {
+        return this.teacherDao.getTeacherByAcademy(academy);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
@@ -61,6 +72,16 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int count() {
         return this.teacherDao.count();
+    }
+
+    /**
+     * 查询所有记录
+     *
+     * @return 对象列表
+     */
+    @Override
+    public List<TeacherPo> list() {
+        return this.teacherDao.list();
     }
 
     /**

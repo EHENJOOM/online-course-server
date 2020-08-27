@@ -49,20 +49,20 @@ public class SubmitWorkPo implements Serializable {
         this.id = id;
     }
 
-    public WorkPo getWorkId() {
+    public WorkPo getWorkPo() {
         return workPo;
     }
 
-    public void setWorkId(WorkPo workId) {
-        this.workPo = workId;
+    public void setWorkPo(WorkPo workPo) {
+        this.workPo = workPo;
     }
 
-    public StudentPo getStudentId() {
+    public StudentPo getStudentPo() {
         return studentPo;
     }
 
-    public void setStudentId(StudentPo studentId) {
-        this.studentPo = studentId;
+    public void setStudentPo(StudentPo studentPo) {
+        this.studentPo = studentPo;
     }
 
     public Date getSubmit() {

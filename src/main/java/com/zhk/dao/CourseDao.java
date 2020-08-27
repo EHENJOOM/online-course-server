@@ -31,6 +31,7 @@ public interface CourseDao {
             @Result(property = "name", column = "name", jdbcType = JdbcType.VARCHAR),
             @Result(property = "code", column = "code", jdbcType = JdbcType.VARCHAR),
             @Result(property = "img", column = "img", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "academy", column = "academy", jdbcType = JdbcType.VARCHAR),
             @Result(property = "teacherPo", column = "teacherId", javaType = TeacherPo.class, one = @One(select = "com.zhk.dao.TeacherDao.getTeacherById", fetchType = FetchType.EAGER))
     })
     CoursePo getCourseById(Integer id);
@@ -46,6 +47,26 @@ public interface CourseDao {
     @ResultMap("course")
     List<CoursePo> limit(@Param("offset") int offset, @Param("limit") int limit);
 
+    /**
+     * 根据学院查询指定行数
+     *
+     * @param academy 学院
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
+    @Select("select * from course.course where course.academy = #{academy} limit #{offset}, #{limit}")
+    @ResultMap("course")
+    List<CoursePo> limitByAcademy(@Param("academy") String academy, @Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 通过学院名查询记录数
+     *
+     * @param academy 学院名
+     * @return 记录数
+     */
+    @Select("select count(*) from course.course where course.academy = #{academy}")
+    Integer countByAcademy(@Param("academy") String academy);
 
     /**
      * 通过实体作为筛选条件查询
@@ -81,8 +102,8 @@ public interface CourseDao {
      * @param coursePo 实例对象
      * @return 影响行数
      */
-    @Insert("insert into course.course(description, outline, calendar, name, code, img, teacherId)\n" +
-            "values (#{description}, #{outline}, #{calendar}, #{name}, #{code}, #{img}, #{teacherPo.id})")
+    @Insert("insert into course.course(description, academy, outline, calendar, name, code, img, teacherId)\n" +
+            "values (#{description}, #{academy}, #{outline}, #{calendar}, #{name}, #{code}, #{img}, #{teacherPo.id})")
     int insert(CoursePo coursePo);
 
     /**
@@ -110,6 +131,9 @@ public interface CourseDao {
             "            </if>\n" +
             "            <if test=\"img != null and img != ''\">\n" +
             "                img = #{img},\n" +
+            "            </if>\n" +
+            "            <if test=\"academy != null and academy != ''\">\n" +
+            "                academy = #{academy},\n" +
             "            </if>\n" +
             "            <if test=\"teacherPo != null and teacherPo.id != null\">\n" +
             "                teacherId = #{teacherPo.id},\n" +

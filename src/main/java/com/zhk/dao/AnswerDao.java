@@ -45,6 +45,27 @@ public interface AnswerDao {
     List<AnswerPo> getAnswerByTopic(@Param("topicId") Integer topicId);
 
     /**
+     * 通过topicId查询指定条数答疑信息
+     *
+     * @param topicId 主题ID
+     * @param offset  便宜
+     * @param limit   查询数
+     * @return 对象列表
+     */
+    @ResultMap("answer")
+    @Select("select * from course.answer where topic_id = #{topicId} limit #{offset}, #{limit}")
+    List<AnswerPo> getAnswerByTopicAndLimit(@Param("topicId") Integer topicId, @Param("offset") Integer offset, @Param("limit") Integer limit);
+
+    /**
+     * 通过话题ID查询总条数
+     *
+     * @param topicId 话题ID
+     * @return 记录数
+     */
+    @Select("select count(*) from course.answer where topic_id = #{topicId}")
+    Integer countAnswerByTopic(@Param("topicId") Integer topicId);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置

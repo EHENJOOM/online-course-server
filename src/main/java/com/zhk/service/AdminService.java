@@ -1,16 +1,16 @@
 package com.zhk.service;
 
-import com.zhk.entity.po.TeacherPo;
+import com.zhk.entity.po.AdminPo;
 
 import java.util.List;
 
 /**
- * (Teacher)表服务接口
+ * (Admin)表服务接口
  *
  * @author 赵洪苛
- * @date 2020/08/01 11:01
+ * @date 2020-08-24 21:30:22
  */
-public interface TeacherService {
+public interface AdminService {
 
     /**
      * 通过ID查询单条数据
@@ -18,7 +18,7 @@ public interface TeacherService {
      * @param id 主键
      * @return 实例对象
      */
-    TeacherPo getTeacherById(Integer id);
+    AdminPo getAdminById(Integer id);
 
     /**
      * 通过工号查询单条数据
@@ -26,15 +26,14 @@ public interface TeacherService {
      * @param number 工号
      * @return 实例对象
      */
-    TeacherPo getTeacherByNumber(String number);
+    AdminPo getAdminByNumber(String number);
 
     /**
-     * 通过学院查询全部数据
+     * 查询系统管理员数量
      *
-     * @param academy 学院
-     * @return 对象列表
+     * @return 总数
      */
-    List<TeacherPo> getTeacherByAcademy(String academy);
+    int count();
 
     /**
      * 查询多条数据
@@ -43,37 +42,23 @@ public interface TeacherService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<TeacherPo> limit(int offset, int limit);
-
-    /**
-     * 查询所有记录
-     *
-     * @return 对象列表
-     */
-    List<TeacherPo> list();
-
-    /**
-     * 查询记录总数
-     *
-     * @return 记录数
-     */
-    int count();
+    List<AdminPo> limit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param teacherPo 实例对象
+     * @param adminPo 实例对象
      * @return 实例对象
      */
-    TeacherPo insert(TeacherPo teacherPo);
+    AdminPo insert(AdminPo adminPo);
 
     /**
      * 修改数据
      *
-     * @param teacherPo 实例对象
+     * @param adminPo 实例对象
      * @return 实例对象
      */
-    TeacherPo update(TeacherPo teacherPo);
+    AdminPo update(AdminPo adminPo);
 
     /**
      * 通过主键删除数据
